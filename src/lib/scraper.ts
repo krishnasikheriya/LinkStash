@@ -24,9 +24,32 @@ export async function scrapeUrl(url: string): Promise<ScrapedData> {
     const $ = cheerio.load(html);
 
     // Extracting metadata using Cheerio selectors
-    const title = $('title').text() || null;
-    const description = $('meta[name="description"]').attr('content') || null;
-    const ogImage = $('meta[property="og:image"]').attr('content') || null;
+    const title = $('title').text() || $('meta[property="og:title"]').attr('content') || null;
+    const description = $('meta[name="description"]').attr('content') || $('meta[property="og:description"]').attr('content') || null;
+    
+    let ogImageRaw = $('meta[property="og:image"]').attr('content') || 
+                     $('meta[name="twitter:image"]').attr('content') ||
+                     $('meta[itemprop="image"]').attr('content') ||
+                     $('link[rel="apple-touch-icon"]').attr('href') ||
+                     null;
+
+    let ogImage = null;
+    if (ogImageRaw) {
+      try {
+        // Resolve relative URLs to absolute
+        ogImage = new URL(ogImageRaw, url).href;
+      } catch (e) {
+        ogImage = ogImageRaw;
+      }
+    } else {
+      // Fallback to high-res Google Favicon API (never 404s)
+      try {
+        const urlObj = new URL(url);
+        ogImage = `https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${urlObj.origin}&size=256`;
+      } catch (e) {
+        // Ignore
+      }
+    }
 
     return {
       title,

@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     }
 
     // 2. Parse the request body
-    const { url } = await req.json();
+    const { url, tags, collectionId } = await req.json();
     if (!url) {
       return NextResponse.json({ error: "URL is required" }, { status: 400 });
     }
@@ -32,6 +32,8 @@ export async function POST(req: Request) {
       title: scrapedData.title,
       description: scrapedData.description,
       ogImage: scrapedData.ogImage,
+      tags: tags || [],
+      collectionId: collectionId || undefined
     });
 
     // 6. Return the newly created bookmark as JSON
@@ -54,9 +56,13 @@ export async function GET(req: Request) {
     // 1. Get the URL search params
     const { searchParams } = new URL(req.url);
     
-    // 2. Extract `search` and `tag` queries
+    // 2. Extract queries
     const search = searchParams.get('search');
     const tag = searchParams.get('tag');
+    const collectionId = searchParams.get('collectionId');
+    const isFavorite = searchParams.get('isFavorite');
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || '12');
 
     // 3. Connect to MongoDB and build the Mongoose query object
     await connectDB();
@@ -74,10 +80,28 @@ export async function GET(req: Request) {
       query.tags = tag;
     }
 
-    // 4. Fetch the data, sort by newest first, and return it
-    const bookmarks = await Bookmark.find(query).sort({ createdAt: -1 });
+    if (collectionId) {
+      query.collectionId = collectionId;
+    }
 
-    return NextResponse.json(bookmarks);
+    if (isFavorite === 'true') {
+      query.isFavorite = true;
+    }
+
+    // 4. Fetch the data, sort by newest first, and apply pagination
+    const bookmarks = await Bookmark.find(query)
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    // Get total count for hasNextPage
+    const total = await Bookmark.countDocuments(query);
+    const hasNextPage = (page * limit) < total;
+
+    return NextResponse.json({
+      bookmarks,
+      nextPage: hasNextPage ? page + 1 : null
+    });
   } catch (error) {
     console.error("Failed to fetch bookmarks:", error);
     return NextResponse.json({ error: "Failed to fetch bookmarks" }, { status: 500 });

@@ -7,7 +7,8 @@ const BookmarkSchema = new mongoose.Schema({
   description: { type: String },
   ogImage: { type: String },
   tags: [{ type: String }],
-  isFavorite: { type: Boolean, default: false }
+  isFavorite: { type: Boolean, default: false },
+  collectionId: { type: Schema.Types.ObjectId, ref: 'Collection' }
 }, { timestamps: true });
 
 // Export the model, similar to the User model

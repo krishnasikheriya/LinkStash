@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LinkStash
+
+LinkStash is a minimal, fast, and secure bookmark manager built with Next.js 15. It allows you to save, organize, and search through your web links. When you add a new URL, the application automatically scrapes the page to retrieve its title, description, and preview image.
+
+## Features
+
+- Link saving with automated metadata scraping
+- Organization via custom collections and tags
+- Advanced search functionality with real-time filtering
+- Infinite scrolling for performance with large datasets
+- Import and Export of standard browser HTML bookmark files
+- Secure authentication via NextAuth.js
+- Dark mode support
+
+## Tech Stack
+
+- Framework: Next.js 15 (App Router)
+- Styling: Tailwind CSS
+- UI Components: shadcn/ui
+- Database: MongoDB via Mongoose
+- Authentication: NextAuth.js (GitHub OAuth)
+- Data Fetching: React Query
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+You need Node.js and npm installed on your machine. You will also need a MongoDB database and GitHub OAuth credentials.
+
+### Installation
+
+1. Clone the repository and navigate into the directory
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Set up your environment variables by creating a `.env.local` file in the root directory:
+   ```env
+   MONGODB_URI=your_mongodb_connection_string
+   AUTH_SECRET=your_nextauth_secret
+   GITHUB_CLIENT_ID=your_github_client_id
+   GITHUB_CLIENT_SECRET=your_github_client_secret
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+5. Open `http://localhost:3000` in your browser.
+
+## Building for Production
+
+To build the application for production, run:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
+npm start
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/mongodb";
-import Bookmark from "@/models/Bookmark";
+
 import { auth } from "@/auth";
+import { Bookmark } from "@/models/Bookmark";
+import { connectDB } from "@/lib/mongodb";
 
 export async function DELETE(req: Request) {
   try {
@@ -9,7 +10,7 @@ export async function DELETE(req: Request) {
     if (!session || !session.user || !session.user.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-
+    
     await connectDB();
     await Bookmark.deleteMany({ userId: session.user.id });
 

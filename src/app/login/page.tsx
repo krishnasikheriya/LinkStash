@@ -13,7 +13,7 @@ export default function LoginPage() {
       <Card className="w-full max-w-md mx-4 relative z-10 border-border shadow-2xl bg-card/90 backdrop-blur-sm">
         <CardHeader className="space-y-3 text-center pb-8 pt-10">
           <div className="flex justify-center mb-2">
-            <img src="/bookmark.png" alt="LinkStash Logo" className="h-16 w-16 dark:invert" />
+            <img src="/logo.svg" alt="LinkStash Logo" className="h-16 w-16 dark:invert" />
           </div>
           <CardTitle className="text-3xl font-extrabold tracking-tight text-foreground">
             LinkStash

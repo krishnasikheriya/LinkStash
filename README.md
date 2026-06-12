@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="public/bookmark.png" alt="LinkStash Logo" width="120" />
+  <img src="public/logo.svg" alt="LinkStash Logo" width="120" />
   <h1>LinkStash</h1>
 </div>
 

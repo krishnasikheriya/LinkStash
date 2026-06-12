@@ -9,7 +9,7 @@ export default async function Navbar() {
   return (
     <nav className="flex justify-between items-center p-4 bg-background/80 backdrop-blur-md border-b border-border shadow-sm sticky top-0 z-50">
       <Link href="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
-        <img src="/bookmark.png" alt="LinkStash Logo" className="h-8 w-8 dark:invert" />
+        <img src="/logo.svg" alt="LinkStash Logo" className="h-8 w-8 dark:invert" />
         <span className="font-bold text-2xl text-foreground tracking-tight">LinkStash</span>
       </Link>
       <div>

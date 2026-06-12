@@ -83,7 +83,7 @@ export default function Sidebar() {
     const params = new URLSearchParams(searchParams.toString());
     params.delete("collectionId");
     params.delete("isFavorite");
-    
+
     if (type === 'favorites') {
       params.set("isFavorite", "true");
     } else if (type && type !== 'all') {
@@ -133,7 +133,7 @@ export default function Sidebar() {
                 <span className="truncate">{c.name}</span>
                 <span className="ml-auto text-xs text-muted-foreground">{c.count}</span>
               </Button>
-              
+
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100 absolute right-4 transition-opacity">

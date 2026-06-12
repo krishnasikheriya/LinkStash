@@ -59,7 +59,6 @@ export default function BookmarkList() {
     }
   }, [inView, fetchNextPage, hasNextPage]);
 
-  // Flatten pages to a single array of bookmarks
   const bookmarks = data?.pages.flatMap((page) => page.bookmarks) || [];
 
   const deleteMutation = useMutation({
@@ -88,7 +87,7 @@ export default function BookmarkList() {
       <Loader2 className="h-8 w-8 animate-spin" />
     </div>
   );
-  
+
   if (!bookmarks?.length) return (
     <div className="flex items-center justify-center h-64 border-2 border-dashed border-border rounded-xl bg-card">
       <div className="text-center">
@@ -196,8 +195,7 @@ export default function BookmarkList() {
         </Card>
       ))}
     </div>
-    
-    {/* Infinite scroll sentinel */}
+
     <div ref={ref} className="w-full flex justify-center py-8">
       {isFetchingNextPage && <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />}
     </div>

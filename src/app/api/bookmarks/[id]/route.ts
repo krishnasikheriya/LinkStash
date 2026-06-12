@@ -10,13 +10,10 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // In Next.js 15 App Router, dynamic params are asynchronous
     const { id } = await params;
 
-    // Parse the payload
     const body = await req.json();
-    
-    // 1. Await database connection
+
     await connectDB();
 
     const updateQuery: any = { $set: {} };
@@ -44,7 +41,6 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
       return NextResponse.json({ error: "Bookmark not found or unauthorized" }, { status: 404 });
     }
 
-    // 3. Return a success JSON response
     return NextResponse.json(updatedBookmark, { status: 200 });
 
   } catch (error) {
@@ -62,9 +58,9 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
 
     const { id } = await params;
     await connectDB();
-    
+
     const deletedBookmark = await Bookmark.findOneAndDelete({ _id: id, userId: session.user.id });
-    
+
     if (!deletedBookmark) {
       return NextResponse.json({ error: "Bookmark not found or unauthorized" }, { status: 404 });
     }

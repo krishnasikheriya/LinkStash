@@ -1,3 +1,3 @@
-import { handlers } from "@/auth" // Adjust path to match where your auth.ts is located
+import { handlers } from "@/auth" 
 
 export const { GET, POST } = handlers;

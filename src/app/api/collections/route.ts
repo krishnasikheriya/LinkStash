@@ -14,11 +14,9 @@ export async function GET(request: Request) {
 
     await connectDB();
     const collections = await Collection.find({ userId: session.user.id }).sort({ name: 1 });
-    
-    // Also get the count of bookmarks in each collection
+
     const collectionIds = collections.map(c => c._id);
-    
-    // Aggregate bookmark counts
+
     const bookmarkCounts = await Bookmark.aggregate([
       { $match: { 
           collectionId: { $in: collectionIds }, 
@@ -27,12 +25,12 @@ export async function GET(request: Request) {
       },
       { $group: { _id: "$collectionId", count: { $sum: 1 } } }
     ]);
-    
+
     const countMap = bookmarkCounts.reduce((acc, curr) => {
       acc[curr._id.toString()] = curr.count;
       return acc;
     }, {});
-    
+
     const collectionsWithCounts = collections.map(c => ({
       _id: c._id,
       name: c.name,

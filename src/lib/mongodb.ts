@@ -1,13 +1,11 @@
 import mongoose from 'mongoose';
 
-// Ensure MONGODB_URI is available in your .env.local
 const MONGODB_URI = process.env.MONGODB_URI!;
 
 if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
 }
 
-// Global caching for Next.js development
 let cached = (global as any).mongoose;
 
 if (!cached) {

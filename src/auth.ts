@@ -3,7 +3,6 @@ import { connectDB } from "./lib/mongodb";
 import { User } from "./models/User";
 import { authConfig } from "./auth.config";
 
-// --- TypeScript Module Augmentation ---
 declare module "next-auth" {
   interface Session {
     user: {
@@ -40,7 +39,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (user) {
         await connectDB();
         const dbUser = await User.findOne({ email: user.email });
-        
+
         if (dbUser) {
           token.id = dbUser._id.toString(); 
         }

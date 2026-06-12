@@ -19,7 +19,7 @@ export default function AddBookmark() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const currentCollectionId = searchParams.get("collectionId");
-  
+
   const [url, setUrl] = useState("");
   const [tags, setTags] = useState("");
   const [collectionId, setCollectionId] = useState(currentCollectionId || "none");
@@ -28,7 +28,7 @@ export default function AddBookmark() {
   const handleCollectionChange = (val: string) => {
     setCollectionId(val);
     const params = new URLSearchParams(searchParams.toString());
-    params.delete("isFavorite"); // clear favorite if selecting collection
+    params.delete("isFavorite"); 
     if (val === "none") {
       params.delete("collectionId");
     } else {
@@ -53,7 +53,7 @@ export default function AddBookmark() {
       if (newCollectionId && newCollectionId !== "none") {
         payload.collectionId = newCollectionId;
       }
-      
+
       const response = await fetch('/api/bookmarks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

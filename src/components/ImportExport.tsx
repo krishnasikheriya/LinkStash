@@ -19,12 +19,11 @@ export default function ImportExport() {
     try {
       setIsImporting(true);
       const text = await file.text();
-      
-      // Super simple regex to extract URLs from Netscape Bookmark format
+
       const regex = /HREF="([^"]+)"/ig;
       const urls: string[] = [];
       let match;
-      
+
       while ((match = regex.exec(text)) !== null) {
         // Basic validation
         if (match[1] && match[1].startsWith('http')) {
@@ -40,7 +39,7 @@ export default function ImportExport() {
 
       // De-duplicate URLs
       const uniqueUrls = Array.from(new Set(urls));
-      
+
       toast.info(`Importing ${uniqueUrls.length} bookmarks... Please wait.`);
 
       let successCount = 0;
@@ -55,7 +54,7 @@ export default function ImportExport() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ url })
           });
-          
+
           if (res.ok) successCount++;
           else failCount++;
         } catch (e) {
@@ -64,13 +63,13 @@ export default function ImportExport() {
       }
 
       queryClient.invalidateQueries({ queryKey: ["bookmarks"] });
-      
+
       if (failCount === 0) {
         toast.success(`Successfully imported all ${successCount} bookmarks!`);
       } else {
         toast.warning(`Import complete. ${successCount} successful, ${failCount} failed.`);
       }
-      
+
     } catch (error) {
       console.error("Import failed:", error);
       toast.error("Failed to parse bookmark file.");

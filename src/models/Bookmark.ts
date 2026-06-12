@@ -11,5 +11,4 @@ const BookmarkSchema = new mongoose.Schema({
   collectionId: { type: Schema.Types.ObjectId, ref: 'Collection' }
 }, { timestamps: true });
 
-// Export the model, similar to the User model
 export const Bookmark = mongoose.models.Bookmark || mongoose.model('Bookmark', BookmarkSchema);

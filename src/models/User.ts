@@ -8,5 +8,4 @@ const UserSchema = new mongoose.Schema({
   providerId: { type: String, required: false }
 }, { timestamps: true });
 
-// Export the model, ensuring we don't overwrite it during HMR
 export const User = mongoose.models.User || mongoose.model('User', UserSchema);

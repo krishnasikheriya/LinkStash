@@ -17,16 +17,13 @@ export async function DELETE(
     const { id } = await params;
     await connectDB();
 
-    // Verify ownership
     const collection = await Collection.findOne({ _id: id, userId: session.user.id });
     if (!collection) {
       return NextResponse.json({ error: "Not found or unauthorized" }, { status: 404 });
     }
 
-    // Delete collection
     await Collection.deleteOne({ _id: id });
 
-    // Important: Unset collectionId for all bookmarks in this collection
     await Bookmark.updateMany(
       { collectionId: id, userId: session.user.id },
       { $unset: { collectionId: 1 } }

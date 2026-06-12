@@ -13,7 +13,6 @@ export async function GET(req: Request) {
     await connectDB();
     const bookmarks = await Bookmark.find({ userId: session.user.id }).sort({ createdAt: -1 });
 
-    // Generate Netscape Bookmark HTML Format
     let html = `<!DOCTYPE NETSCAPE-Bookmark-file-1>
 <!-- This is an automatically generated file.
      It will be read and overwritten.
@@ -27,9 +26,9 @@ export async function GET(req: Request) {
       const addDate = Math.floor(new Date(bookmark.createdAt).getTime() / 1000);
       const title = bookmark.title || bookmark.url;
       const tagsAttr = bookmark.tags && bookmark.tags.length > 0 ? ` TAGS="${bookmark.tags.join(',')}"` : '';
-      
+
       html += `    <DT><A HREF="${bookmark.url}" ADD_DATE="${addDate}"${tagsAttr}>${title}</A>\n`;
-      
+
       if (bookmark.description) {
         html += `    <DD>${bookmark.description}\n`;
       }

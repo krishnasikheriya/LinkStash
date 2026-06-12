@@ -22,7 +22,7 @@ export default function FavoriteButton({ bookmarkId, isFavorite, search, tag }: 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ isFavorite: newIsFavorite }),
       });
-      
+
       if (!res.ok) {
         throw new Error("Failed to update favorite status");
       }

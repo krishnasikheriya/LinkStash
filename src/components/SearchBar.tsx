@@ -11,7 +11,6 @@ export default function SearchBar() {
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
 
-  // Local state for the input, so we don't lag on every keystroke
   const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "");
 
   // Sync local state when URL changes externally
@@ -32,29 +31,26 @@ export default function SearchBar() {
       } else {
         params.delete("search");
       }
-      
+
       startTransition(() => {
         router.push(`/?${params.toString()}`);
       });
-    }, 300); // 300ms debounce delay
+    }, 300); 
 
     return () => clearTimeout(timeoutId);
   }, [searchTerm, searchParams, router]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // 1. Get current params
+
     const params = new URLSearchParams(searchParams.toString());
-    
-    // 2. Update or delete the search key
+
     if (searchTerm) {
       params.set("search", searchTerm);
     } else {
       params.delete("search");
     }
-    
-    // 3. Update the URL
+
     startTransition(() => {
       router.push(`/?${params.toString()}`);
     });
@@ -99,7 +95,7 @@ export default function SearchBar() {
           </button>
         )}
       </div>
-      {/* Optional submit button, or just rely on Enter key */}
+
       <button type="submit" className="hidden">Search</button>
       {isPending && <span className="text-sm text-muted-foreground animate-pulse">Updating...</span>}
     </form>

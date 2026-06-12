@@ -21,7 +21,12 @@ import {
 export default function DeleteAllBookmarks() {
   const [open, setOpen] = useState(false);
   const [confirmation, setConfirmation] = useState("");
+  const [requiredCode, setRequiredCode] = useState("");
   const queryClient = useQueryClient();
+
+  const generateCode = () => {
+    return Math.random().toString(36).substring(2, 8).toUpperCase();
+  };
 
   const deleteMutation = useMutation({
     mutationFn: async () => {
@@ -41,7 +46,7 @@ export default function DeleteAllBookmarks() {
   });
 
   const handleDelete = () => {
-    if (confirmation === "DELETE ALL") {
+    if (confirmation === requiredCode) {
       deleteMutation.mutate();
     }
   };
@@ -49,7 +54,11 @@ export default function DeleteAllBookmarks() {
   return (
     <AlertDialog open={open} onOpenChange={(isOpen) => {
       setOpen(isOpen);
-      if (!isOpen) setConfirmation("");
+      if (!isOpen) {
+        setConfirmation("");
+      } else {
+        setRequiredCode(generateCode());
+      }
     }}>
       <AlertDialogTrigger asChild>
         <Button variant="ghost" className="w-full justify-start h-9 text-destructive hover:text-destructive hover:bg-destructive/10 mt-1">
@@ -66,14 +75,14 @@ export default function DeleteAllBookmarks() {
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete <b>all</b> your bookmarks from your account. Collections will remain, but will be empty.
             <br/><br/>
-            Please type <b>DELETE ALL</b> to confirm.
+            Please type <b>{requiredCode}</b> to confirm.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <div className="py-4">
           <Input 
             value={confirmation}
             onChange={(e) => setConfirmation(e.target.value)}
-            placeholder="DELETE ALL"
+            placeholder={requiredCode}
             className="border-destructive/50 focus-visible:ring-destructive"
           />
         </div>
@@ -81,7 +90,7 @@ export default function DeleteAllBookmarks() {
           <AlertDialogCancel disabled={deleteMutation.isPending}>Cancel</AlertDialogCancel>
           <Button 
             variant="destructive"
-            disabled={confirmation !== "DELETE ALL" || deleteMutation.isPending}
+            disabled={confirmation !== requiredCode || deleteMutation.isPending}
             onClick={handleDelete}
           >
             {deleteMutation.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}

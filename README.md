@@ -1,4 +1,7 @@
-# LinkStash
+<div align="center">
+  <img src="public/bookmark.png" alt="LinkStash Logo" width="120" />
+  <h1>LinkStash</h1>
+</div>
 
 LinkStash is a minimal, fast, and secure bookmark manager built with Next.js 15. It allows you to save, organize, and search through your web links. When you add a new URL, the application automatically scrapes the page to retrieve its title, description, and preview image.
 
@@ -20,6 +23,22 @@ LinkStash is a minimal, fast, and secure bookmark manager built with Next.js 15.
 - Database: MongoDB via Mongoose
 - Authentication: NextAuth.js (GitHub OAuth)
 - Data Fetching: React Query
+
+## Architecture
+
+```mermaid
+graph TD
+    Client[Next.js Client Components]
+    ServerAPI[Next.js API Routes]
+    Auth[NextAuth.js]
+    DB[(MongoDB)]
+    Ext[External Websites]
+
+    Client -- Authenticate --> Auth
+    Client -- Fetch/Mutate Data --> ServerAPI
+    ServerAPI -- Scrape Metadata --> Ext
+    ServerAPI -- Read/Write --> DB
+```
 
 ## Getting Started
 

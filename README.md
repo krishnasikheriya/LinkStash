@@ -1,5 +1,9 @@
 <div align="center">
-  <img src="public/logo.svg" alt="LinkStash Logo" width="120" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="public/logo-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="public/logo.svg" />
+    <img src="public/logo.svg" alt="LinkStash Logo" width="120" />
+  </picture>
   <h1>LinkStash</h1>
 </div>
 

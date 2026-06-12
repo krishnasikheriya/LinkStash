@@ -8,6 +8,7 @@ import { Plus, Folder, Star, Bookmark, Trash2, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import ImportExport from "@/components/ImportExport";
+import DeleteAllBookmarks from "@/components/DeleteAllBookmarks";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -183,6 +184,7 @@ export default function Sidebar() {
       <div className="space-y-1 pt-6 border-t border-border">
         <h3 className="text-sm font-medium text-muted-foreground mb-2 px-2">Data</h3>
         <ImportExport />
+        <DeleteAllBookmarks />
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD033 MD041 MD013 -->
 <div align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="public/logo-dark.svg" />
@@ -8,9 +9,9 @@
   <p>A lightning-fast, premium bookmark manager for power users.</p>
 </div>
 
-LinkStash is a completely overhauled, private, and deeply customizable bookmarking engine built with Next.js 15. Drop in a URL, and LinkStash automatically crawls the web to extract titles, descriptions, and high-quality OpenGraph thumbnails. 
+LinkStash is a completely overhauled, private, and deeply customizable bookmarking engine built with Next.js 15. Drop in a URL, and LinkStash automatically crawls the web to extract titles, descriptions, and high-quality OpenGraph thumbnails.
 
-## ✨ Key Features
+## Key Features
 
 - **Automated Metadata Scraping**: Paste a link, and we automatically extract the title, description, and high-quality preview image using Cheerio.
 - **Command Palette (`Cmd+K`)**: Navigate anywhere, search bookmarks instantly, and execute global actions without ever touching your mouse.
@@ -20,7 +21,7 @@ LinkStash is a completely overhauled, private, and deeply customizable bookmarki
 - **Infinite Scroll & Pagination**: Effortlessly browse through thousands of bookmarks with buttery smooth performance.
 - **Premium Aesthetics**: Built entirely on top of **shadcn/ui** and Tailwind CSS v4, featuring a beautiful dark mode and rich micro-interactions.
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Framework**: Next.js 15 (App Router & Turbopack)
 - **Database**: MongoDB via Mongoose
@@ -29,7 +30,7 @@ LinkStash is a completely overhauled, private, and deeply customizable bookmarki
 - **Data Fetching**: React Query (TanStack)
 - **Browser Extension**: Vanilla JS/CSS (Manifest V3)
 
-## 🏗 Architecture
+## Architecture
 
 ```mermaid
 graph TD
@@ -47,9 +48,10 @@ graph TD
     Chrome -- Save Bookmark + API Key --> ServerAPI
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
+
 - Node.js (v18+)
 - MongoDB connection string (Atlas or Local)
 - GitHub OAuth App (for NextAuth)
@@ -57,18 +59,21 @@ graph TD
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/krishnasikheriya/LinkStash.git
    cd LinkStash
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Set up environment variables**
    Create a `.env.local` file in the root directory:
+
    ```env
    MONGODB_URI=your_mongodb_connection_string
    AUTH_SECRET=generate_a_random_secret
@@ -77,12 +82,14 @@ graph TD
    ```
 
 4. **Start the development server**
+
    ```bash
    npm run dev
    ```
+
    Open `http://localhost:3000` in your browser.
 
-## 🧩 Setting up the Chrome Extension
+## Setting up the Chrome Extension
 
 1. Log into your LinkStash dashboard.
 2. Open **Settings** from the sidebar to view your Secret API Key.
@@ -91,7 +98,7 @@ graph TD
 5. Click **Load unpacked** and select the `/extension` folder inside this repository.
 6. Click the extension icon, paste your API Key, and you're ready to save tabs!
 
-## 📦 Building for Production
+## Building for Production
 
 To build the application for Vercel or any Node.js server:
 

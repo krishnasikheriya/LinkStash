@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 
 import { Star } from "lucide-react";
+import { toast } from "sonner";
 
 interface FavoriteButtonProps {
   bookmarkId: string;
@@ -36,10 +37,14 @@ export default function FavoriteButton({ bookmarkId, isFavorite, search, tag }: 
       );
       return { previousBookmarks };
     },
+    onSuccess: (data, newIsFavorite) => {
+      toast.success(newIsFavorite ? "Added to favorites" : "Removed from favorites");
+    },
     onError: (err, newIsFavorite, context) => {
       if (context?.previousBookmarks) {
         queryClient.setQueryData(["bookmarks", { search, tag }], context.previousBookmarks);
       }
+      toast.error("Failed to update favorite status");
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["bookmarks", { search, tag }] });

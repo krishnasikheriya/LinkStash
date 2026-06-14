@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Plus, Folder, Star, Bookmark, Trash2, Loader2 } from "lucide-react";
+import { Plus, Folder, Star, Bookmark, Trash2, Loader2, Search } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import ImportExport from "@/components/ImportExport";
@@ -96,6 +96,21 @@ export default function Sidebar() {
 
   return (
     <div className="w-full md:w-64 flex-shrink-0 space-y-6">
+      
+      <Button 
+        variant="outline" 
+        className="w-full justify-between text-muted-foreground shadow-sm h-9 px-3" 
+        onClick={() => document.dispatchEvent(new CustomEvent('open-command-palette'))}
+      >
+        <span className="flex items-center gap-2">
+          <Search className="h-4 w-4" />
+          <span>Search...</span>
+        </span>
+        <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+          <span className="text-xs">⌘</span>K
+        </kbd>
+      </Button>
+
       <div className="space-y-1">
         <h3 className="text-sm font-medium text-muted-foreground mb-2 px-2">Library</h3>
         <Button 

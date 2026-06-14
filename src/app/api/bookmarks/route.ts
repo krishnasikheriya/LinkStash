@@ -80,7 +80,7 @@ export async function GET(req: Request) {
     }
 
     const bookmarks = await Bookmark.find(query)
-      .sort({ createdAt: -1 })
+      .sort({ createdAt: -1, _id: -1 })
       .skip((page - 1) * limit)
       .limit(limit);
 

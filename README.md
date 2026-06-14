@@ -5,30 +5,31 @@
     <img src="public/logo.svg" alt="LinkStash Logo" width="120" />
   </picture>
   <h1>LinkStash</h1>
+  <p>A lightning-fast, premium bookmark manager for power users.</p>
 </div>
 
-LinkStash is a minimal, fast, and secure bookmark manager built with Next.js 15. It allows you to save, organize, and search through your web links. When you add a new URL, the application automatically scrapes the page to retrieve its title, description, and preview image.
+LinkStash is a completely overhauled, private, and deeply customizable bookmarking engine built with Next.js 15. Drop in a URL, and LinkStash automatically crawls the web to extract titles, descriptions, and high-quality OpenGraph thumbnails. 
 
-## Features
+## ✨ Key Features
 
-- Link saving with automated metadata scraping
-- Organization via custom collections and tags
-- Advanced search functionality with real-time filtering
-- Infinite scrolling for performance with large datasets
-- Import and Export of standard browser HTML bookmark files
-- Secure authentication via NextAuth.js
-- Dark mode support
+- **Automated Metadata Scraping**: Paste a link, and we automatically extract the title, description, and high-quality preview image using Cheerio.
+- **Command Palette (`Cmd+K`)**: Navigate anywhere, search bookmarks instantly, and execute global actions without ever touching your mouse.
+- **Dedicated Chrome Extension**: Save tabs with a single click. The extension seamlessly syncs with your dashboard using a secure personal API Key.
+- **Data Liberation**: Your data is yours. Instantly import bookmarks from your browser (HTML) or export everything to CSV or JSON.
+- **Collections & Tagging**: Organize your stash with deeply integrated folder structures, favorites, and multi-tag filtering.
+- **Infinite Scroll & Pagination**: Effortlessly browse through thousands of bookmarks with buttery smooth performance.
+- **Premium Aesthetics**: Built entirely on top of **shadcn/ui** and Tailwind CSS v4, featuring a beautiful dark mode and rich micro-interactions.
 
-## Tech Stack
+## 🛠 Tech Stack
 
-- Framework: Next.js 15 (App Router)
-- Styling: Tailwind CSS
-- UI Components: shadcn/ui
-- Database: MongoDB via Mongoose
-- Authentication: NextAuth.js (GitHub OAuth)
-- Data Fetching: React Query
+- **Framework**: Next.js 15 (App Router & Turbopack)
+- **Database**: MongoDB via Mongoose
+- **Styling**: Tailwind CSS v4 + shadcn/ui
+- **Authentication**: NextAuth.js (GitHub OAuth)
+- **Data Fetching**: React Query (TanStack)
+- **Browser Extension**: Vanilla JS/CSS (Manifest V3)
 
-## Architecture
+## 🏗 Architecture
 
 ```mermaid
 graph TD
@@ -37,42 +38,62 @@ graph TD
     Auth[NextAuth.js]
     DB[(MongoDB)]
     Ext[External Websites]
+    Chrome[Chrome Extension]
 
     Client -- Authenticate --> Auth
     Client -- Fetch/Mutate Data --> ServerAPI
     ServerAPI -- Scrape Metadata --> Ext
     ServerAPI -- Read/Write --> DB
+    Chrome -- Save Bookmark + API Key --> ServerAPI
 ```
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
-
-You need Node.js and npm installed on your machine. You will also need a MongoDB database and GitHub OAuth credentials.
+- Node.js (v18+)
+- MongoDB connection string (Atlas or Local)
+- GitHub OAuth App (for NextAuth)
 
 ### Installation
 
-1. Clone the repository and navigate into the directory
-2. Install dependencies:
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/krishnasikheriya/LinkStash.git
+   cd LinkStash
+   ```
+
+2. **Install dependencies**
    ```bash
    npm install
    ```
-3. Set up your environment variables by creating a `.env.local` file in the root directory:
+
+3. **Set up environment variables**
+   Create a `.env.local` file in the root directory:
    ```env
    MONGODB_URI=your_mongodb_connection_string
-   AUTH_SECRET=your_nextauth_secret
+   AUTH_SECRET=generate_a_random_secret
    GITHUB_CLIENT_ID=your_github_client_id
    GITHUB_CLIENT_SECRET=your_github_client_secret
    ```
-4. Start the development server:
+
+4. **Start the development server**
    ```bash
    npm run dev
    ```
-5. Open `http://localhost:3000` in your browser.
+   Open `http://localhost:3000` in your browser.
 
-## Building for Production
+## 🧩 Setting up the Chrome Extension
 
-To build the application for production, run:
+1. Log into your LinkStash dashboard.
+2. Open **Settings** from the sidebar to view your Secret API Key.
+3. Open Chrome and navigate to `chrome://extensions/`.
+4. Enable **Developer Mode** in the top right.
+5. Click **Load unpacked** and select the `/extension` folder inside this repository.
+6. Click the extension icon, paste your API Key, and you're ready to save tabs!
+
+## 📦 Building for Production
+
+To build the application for Vercel or any Node.js server:
 
 ```bash
 npm run build

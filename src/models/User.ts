@@ -5,7 +5,8 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   image: { type: String, required: false },
   provider: { type: String, required: false },
-  providerId: { type: String, required: false }
+  providerId: { type: String, required: false },
+  apiKey: { type: String, required: false, unique: true, sparse: true }
 }, { timestamps: true });
 
 export const User = mongoose.models.User || mongoose.model('User', UserSchema);

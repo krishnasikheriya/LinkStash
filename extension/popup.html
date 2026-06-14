@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkStash</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div id="setup-view" class="view hidden">
+    <h2>Welcome to LinkStash</h2>
+    <p>Please enter your personal API Key from the Settings page to link this extension.</p>
+    <div class="input-group">
+      <label for="serverUrl">LinkStash Server URL</label>
+      <input type="text" id="serverUrl" value="http://localhost:3000">
+    </div>
+    <div class="input-group">
+      <label for="apiKey">API Key</label>
+      <input type="password" id="apiKey" placeholder="ls_...">
+    </div>
+    <button id="saveSetupBtn" class="btn primary">Link Account</button>
+  </div>
+
+  <div id="main-view" class="view hidden">
+    <div class="header">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+        <span>LinkStash</span>
+      </div>
+      <button id="settingsBtn" class="btn icon-btn" title="Settings">⚙️</button>
+    </div>
+    
+    <div class="card">
+      <div class="tab-info">
+        <div id="tabTitle" class="truncate font-medium">Loading...</div>
+        <div id="tabUrl" class="truncate text-muted">...</div>
+      </div>
+
+      <div class="input-group mt-3">
+        <label for="tagsInput">Tags (comma separated)</label>
+        <input type="text" id="tagsInput" placeholder="react, tutorial, video...">
+      </div>
+
+      <button id="saveBookmarkBtn" class="btn primary mt-4 w-full">Save Bookmark</button>
+    </div>
+    <div id="statusMessage" class="status hidden"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

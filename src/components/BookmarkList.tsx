@@ -11,6 +11,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useInView } from "react-intersection-observer";
+import { useRouter } from "next/navigation";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,6 +25,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export default function BookmarkList() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const search = searchParams.get("search") || "";
   const tag = searchParams.get("tag") || "";
@@ -114,7 +116,7 @@ export default function BookmarkList() {
                 }}
               />
             ) : null}
-            <div className={`absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/5 to-primary/20 ${bookmark.ogImage ? 'hidden' : ''}`}>
+            <div className={`absolute inset-0 flex items-center justify-center bg-linear-to-br from-primary/5 to-primary/20 ${bookmark.ogImage ? 'hidden' : ''}`}>
               <Globe className="h-12 w-12 text-primary/40" />
             </div>
             <div className="absolute top-3 right-3 z-10 bg-background/80 backdrop-blur-sm rounded-full shadow-sm hover:scale-110 transition-transform">
@@ -157,7 +159,7 @@ export default function BookmarkList() {
             )}
           </CardContent>
           <CardFooter className="px-5 py-3 flex justify-between items-center border-t border-border bg-muted/50">
-            <div className="flex gap-2">
+            <div className="flex gap-1 overflow-x-auto no-scrollbar">
               <Button variant="ghost" size="sm" onClick={() => handleCopy(bookmark.url, bookmark._id)} className="text-muted-foreground hover:text-foreground h-8 px-2">
                 {copiedId === bookmark._id ? <Check className="h-4 w-4 mr-1 text-green-500" /> : <Copy className="h-4 w-4 mr-1" />}
                 <span className="text-xs hidden sm:inline-block">Copy</span>

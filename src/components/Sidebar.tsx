@@ -4,11 +4,12 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Plus, Folder, Star, Bookmark, Trash2, Loader2, Search } from "lucide-react";
+import { Plus, Folder, Star, Bookmark, Trash2, Loader2, Search, Settings, Tag } from "lucide-react";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import ImportExport from "@/components/ImportExport";
 import DeleteAllBookmarks from "@/components/DeleteAllBookmarks";
+import SettingsDialog from "@/components/SettingsDialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -100,7 +101,7 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="w-full md:w-64 flex-shrink-0 space-y-6">
+    <div className="w-full md:w-64 shrink-0 space-y-6">
       
       <Button 
         variant="outline" 
@@ -205,6 +206,7 @@ export default function Sidebar() {
         <h3 className="text-sm font-medium text-muted-foreground mb-2 px-2">Data</h3>
         <ImportExport />
         <DeleteAllBookmarks />
+        <SettingsDialog />
       </div>
     </div>
   );

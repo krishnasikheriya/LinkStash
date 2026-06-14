@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Folder, Star, Bookmark, Trash2, Loader2, Search } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import ImportExport from "@/components/ImportExport";
 import DeleteAllBookmarks from "@/components/DeleteAllBookmarks";
@@ -26,6 +26,11 @@ export default function Sidebar() {
   const searchParams = useSearchParams();
   const queryClient = useQueryClient();
   const [newCollectionName, setNewCollectionName] = useState("");
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const currentCollectionId = searchParams.get("collectionId");
   const isFavorite = searchParams.get("isFavorite") === "true";
@@ -133,7 +138,7 @@ export default function Sidebar() {
 
       <div className="space-y-1">
         <h3 className="text-sm font-medium text-muted-foreground mb-2 px-2">Collections</h3>
-        {isLoading ? (
+        {!isMounted || isLoading ? (
           <div className="flex justify-center p-4">
             <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
           </div>
